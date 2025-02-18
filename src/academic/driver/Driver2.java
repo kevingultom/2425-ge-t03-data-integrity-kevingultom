@@ -51,17 +51,17 @@ public class Driver2 {
                     if (parts.length == 5) {
                         String courseId = parts[1], studentId = parts[2];
 
-                        // Periksa apakah studentId tidak valid dan belum ada di invalidStudents
+                        // Validasi apakah studentId tidak valid dan belum ditambahkan ke invalidStudents
                         if (!invalidStudents.contains(studentId)) {
                             if (students.stream().noneMatch(s -> s.getId().equals(studentId))) {
-                                invalidStudents.add(studentId); // Tambahkan ke invalidStudents hanya jika belum ada
+                                invalidStudents.add(studentId); // Tambahkan ke invalidStudents
                             }
                         }
 
-                        // Periksa apakah courseId tidak valid dan belum ada di invalidCourses
+                        // Validasi apakah courseId tidak valid dan belum ditambahkan ke invalidCourses
                         if (!invalidCourses.contains(courseId)) {
                             if (courses.stream().noneMatch(c -> c.getId().equals(courseId))) {
-                                invalidCourses.add(courseId); // Tambahkan ke invalidCourses hanya jika belum ada
+                                invalidCourses.add(courseId); // Tambahkan ke invalidCourses
                             }
                         }
 
