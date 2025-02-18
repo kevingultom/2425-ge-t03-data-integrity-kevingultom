@@ -98,7 +98,6 @@ public class Driver2 {
             System.out.println(students.get(i));
         }
 
-        // Outputkan semua enrollments
         for (int i = 0; i < enrollments.size(); i++) {
             System.out.println(enrollments.get(i));
         }
