@@ -51,17 +51,17 @@ public class Driver2 {
                     if (parts.length == 5) {
                         String courseId = parts[1], studentId = parts[2];
 
-                        // Hanya menambahkannya ke invalidStudents jika siswa tidak ditemukan di daftar siswa
+                        // Tambahkan hanya jika siswa tidak valid dan belum ada di invalidStudents
                         if (students.stream().noneMatch(s -> s.getId().equals(studentId)) && !invalidStudents.contains(studentId)) {
                             invalidStudents.add(studentId); 
                         }
 
-                        // Hanya menambahkannya ke invalidCourses jika mata kuliah tidak ditemukan di daftar courses
+                        // Tambahkan hanya jika kursus tidak valid dan belum ada di invalidCourses
                         if (courses.stream().noneMatch(c -> c.getId().equals(courseId)) && !invalidCourses.contains(courseId)) {
                             invalidCourses.add(courseId); 
                         }
 
-                        // Jika ID siswa dan ID mata kuliah valid, lanjutkan dengan pendaftaran
+                        // Jika siswa dan kursus valid, lakukan pendaftaran
                         if (students.stream().anyMatch(s -> s.getId().equals(studentId)) &&
                             courses.stream().anyMatch(c -> c.getId().equals(courseId))) {
                             enrollments.add(new Enrollments(courseId, studentId, parts[3], parts[4], "None"));
@@ -70,30 +70,28 @@ public class Driver2 {
                     break;
             }
         }
-        courses.sort((course1, course2) -> course1.getId().compareTo(course2.getId()));
 
-
-        // Output untuk invalid students
+        // Output invalid students
         for (String studentId : invalidStudents) {
             System.out.println("invalid student|" + studentId);
         }
 
-        // Output untuk invalid courses
+        // Output invalid courses
         for (String courseId : invalidCourses) {
             System.out.println("invalid course|" + courseId);
         }
 
-        // Output untuk courses
+        // Output courses
         for (int i = 0; i < courses.size(); i++) {
             System.out.println(courses.get(i));
         }
 
-        // Output untuk students
+        // Output students
         for (int i = 0; i < students.size(); i++) {
             System.out.println(students.get(i));
         }
 
-        // Output untuk enrollments
+        // Output enrollments
         for (int i = 0; i < enrollments.size(); i++) {
             System.out.println(enrollments.get(i));
         }
