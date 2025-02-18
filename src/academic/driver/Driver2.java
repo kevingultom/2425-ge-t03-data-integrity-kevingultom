@@ -20,8 +20,10 @@ public class Driver2 {
         List<Course> courses = new ArrayList<>();
         List<Student> students = new ArrayList<>();
         List<Enrollments> enrollments = new ArrayList<>();
-        Set<String> invalidStudents = new HashSet<>(); 
-        Set<String> invalidCourses = new HashSet<>();  
+        Set<String> invalidStudents = new HashSet<>(); // Menggunakan Set untuk menghindari duplikasi
+        Set<String> invalidCourses = new HashSet<>();  // Menggunakan Set untuk menghindari duplikasi
+
+        // Membaca input hingga menemukan '---'
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine().trim();
             if (input.equals("---")) {
@@ -38,11 +40,13 @@ public class Driver2 {
             switch (command) {
                 case "course-add":
                     if (parts.length == 5) {
+                        // Menambahkan kursus
                         courses.add(new Course(parts[1], parts[2], Integer.parseInt(parts[3]), parts[4]));
                     }
                     break;
                 case "student-add":
                     if (parts.length == 5) {
+                        // Menambahkan mahasiswa
                         students.add(new Student(parts[1], parts[2], Integer.parseInt(parts[3]), parts[4]));
                     }
                     break;
@@ -50,14 +54,17 @@ public class Driver2 {
                     if (parts.length == 5) {
                         String courseId = parts[1], studentId = parts[2];
 
+                        // Cek apakah studentId ada di daftar students
                         if (students.stream().noneMatch(s -> s.getId().equals(studentId)) && !invalidStudents.contains(studentId)) {
-                            invalidStudents.add(studentId); 
+                            invalidStudents.add(studentId); // Menyimpan pesan kesalahan hanya sekali
                         }
 
+                        // Cek apakah courseId ada di daftar courses
                         if (courses.stream().noneMatch(c -> c.getId().equals(courseId)) && !invalidCourses.contains(courseId)) {
-                            invalidCourses.add(courseId); 
+                            invalidCourses.add(courseId); // Menyimpan pesan kesalahan hanya sekali
                         }
 
+                        // Jika valid, masukkan data enrollments
                         if (students.stream().anyMatch(s -> s.getId().equals(studentId)) &&
                             courses.stream().anyMatch(c -> c.getId().equals(courseId))) {
                             enrollments.add(new Enrollments(courseId, studentId, parts[3], parts[4], "None"));
@@ -69,9 +76,11 @@ public class Driver2 {
             }
         }
 
+        // Sort courses and students by ID
         courses.sort((course1, course2) -> course1.getId().compareTo(course2.getId()));
 
-    
+        // Output setelah menemukan '---'
+        // Print error messages (cetak hanya sekali untuk setiap ID yang invalid)
         for (String studentId : invalidStudents) {
             System.out.println("invalid student|" + studentId);
         }
@@ -80,6 +89,7 @@ public class Driver2 {
             System.out.println("invalid course|" + courseId);
         }
 
+        // Print all courses, students, and enrollments
         for (Course course : courses) {
             System.out.println(course);
         }
