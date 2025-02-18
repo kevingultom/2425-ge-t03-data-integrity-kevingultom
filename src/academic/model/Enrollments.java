@@ -18,6 +18,40 @@ public class Enrollments {
             this.subject = subject;
             this.None = None;
         }
+
+        public String getId() {
+            return id;
+        }
+        public String getNim() {
+            return nim;
+        }
+        public String getTahun() {
+            return tahun;
+        }
+        public String getSubject() {
+            return subject;
+        }
+        public String getNone() {
+            return None;
+        }
+
+        //SETTER
+        public void setId(String id) {
+            this.id = id;
+        }
+        public void setNim(String nim) {
+            this.nim = nim;
+        }
+        public void setTahun(String tahun) {
+            this.tahun = tahun;
+        }
+        public void setSubject(String subject) {
+            this.subject = subject;
+        }
+        public void setNone(String None) {
+            this.None = None;
+        }
+        
         
 
         @Override 

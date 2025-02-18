@@ -17,7 +17,39 @@ public class Course {
             this.credits = credits;
             this.grade = grade;
         }
+        // Getter
+    public String getId() {
+        return id;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getCredits() {
+        return credits;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    // Setter
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
     
         @Override 
         public String toString(){

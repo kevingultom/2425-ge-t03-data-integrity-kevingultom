@@ -17,6 +17,34 @@ public class Student {
             this.tahun = tahun;
             this.prodi = prodi;
         }
+        //getter
+        public String getId() {
+        return id;
+        }
+        public String getName() {
+        return name;
+        }
+        public int getTahun() {
+        return tahun;
+        }
+        public String getProdi() {
+        return prodi;
+        }
+        //setter
+        public void setId(String id) {
+        this.id = id;
+        }
+        public void setName(String name) {
+        this.name = name;
+        }
+        public void setTahun(int tahun) {
+        this.tahun = tahun;
+        }
+        public void setProdi(String prodi) {
+        this.prodi = prodi;
+        }
+        
+
 
     
         @Override 
