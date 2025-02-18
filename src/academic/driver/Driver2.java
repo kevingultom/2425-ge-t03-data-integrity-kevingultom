@@ -51,17 +51,14 @@ public class Driver2 {
                     if (parts.length == 5) {
                         String courseId = parts[1], studentId = parts[2];
 
-                        // Tambahkan hanya jika siswa tidak valid dan belum ada di invalidStudents
                         if (students.stream().noneMatch(s -> s.getId().equals(studentId)) && !invalidStudents.contains(studentId)) {
                             invalidStudents.add(studentId); 
                         }
 
-                        // Tambahkan hanya jika kursus tidak valid dan belum ada di invalidCourses
                         if (courses.stream().noneMatch(c -> c.getId().equals(courseId)) && !invalidCourses.contains(courseId)) {
                             invalidCourses.add(courseId); 
                         }
 
-                        // Jika siswa dan kursus valid, lakukan pendaftaran
                         if (students.stream().anyMatch(s -> s.getId().equals(studentId)) &&
                             courses.stream().anyMatch(c -> c.getId().equals(courseId))) {
                             enrollments.add(new Enrollments(courseId, studentId, parts[3], parts[4], "None"));
@@ -70,28 +67,25 @@ public class Driver2 {
                     break;
             }
         }
+        courses.sort((course1, course2) -> course1.getId().compareTo(course2.getId()));
 
-        // Output invalid students
+
         for (String studentId : invalidStudents) {
             System.out.println("invalid student|" + studentId);
         }
 
-        // Output invalid courses
         for (String courseId : invalidCourses) {
             System.out.println("invalid course|" + courseId);
         }
 
-        // Output courses
         for (int i = 0; i < courses.size(); i++) {
             System.out.println(courses.get(i));
         }
 
-        // Output students
         for (int i = 0; i < students.size(); i++) {
             System.out.println(students.get(i));
         }
 
-        // Output enrollments
         for (int i = 0; i < enrollments.size(); i++) {
             System.out.println(enrollments.get(i));
         }
