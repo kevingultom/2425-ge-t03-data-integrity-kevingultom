@@ -67,6 +67,8 @@ public class Driver2 {
                     break;
             }
         }
+        courses.sort((course1, course2) -> course1.getId().compareTo(course2.getId()));
+
 
         // Output untuk invalid students
         for (String studentId : invalidStudents) {
