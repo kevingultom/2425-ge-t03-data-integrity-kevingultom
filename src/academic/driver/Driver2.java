@@ -67,18 +67,15 @@ public class Driver2 {
                     break;
             }
         }
-        courses.sort((course1, course2) -> course1.getId().compareTo(course2.getId()));
 
         // Output untuk invalid students
-        Object[] invalidStudentArray = invalidStudents.toArray();
-        for (int i = 0; i < invalidStudentArray.length; i++) {
-            System.out.println("invalid student|" + invalidStudentArray[i]);
+        for (String studentId : invalidStudents) {
+            System.out.println("invalid student|" + studentId);
         }
 
         // Output untuk invalid courses
-        Object[] invalidCourseArray = invalidCourses.toArray();
-        for (int i = 0; i < invalidCourseArray.length; i++) {
-            System.out.println("invalid course|" + invalidCourseArray[i]);
+        for (String courseId : invalidCourses) {
+            System.out.println("invalid course|" + courseId);
         }
 
         // Output untuk courses
