@@ -54,13 +54,13 @@ public class Driver2 {
                     if (parts.length == 5) {
                         String courseId = parts[1], studentId = parts[2];
 
-                        // Cek apakah studentId ada di daftar students, jika tidak, tambahkan ke invalidStudents
-                        if (students.stream().noneMatch(s -> s.getId().equals(studentId))) {
+                        // Cek apakah studentId ada di daftar students
+                        if (students.stream().noneMatch(s -> s.getId().equals(studentId)) && !invalidStudents.contains(studentId)) {
                             invalidStudents.add(studentId); // Menyimpan pesan kesalahan hanya sekali
                         }
 
-                        // Cek apakah courseId ada di daftar courses, jika tidak, tambahkan ke invalidCourses
-                        if (courses.stream().noneMatch(c -> c.getId().equals(courseId))) {
+                        // Cek apakah courseId ada di daftar courses
+                        if (courses.stream().noneMatch(c -> c.getId().equals(courseId)) && !invalidCourses.contains(courseId)) {
                             invalidCourses.add(courseId); // Menyimpan pesan kesalahan hanya sekali
                         }
 
