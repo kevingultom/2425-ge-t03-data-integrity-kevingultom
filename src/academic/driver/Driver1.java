@@ -1,9 +1,7 @@
 package academic.driver;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.Scanner;
 import academic.model.Course;
 import academic.model.Student;
@@ -20,8 +18,6 @@ public class Driver1 {
         List<Course> courses = new ArrayList<>();
         List<Student> students = new ArrayList<>();
         List<Enrollments> enrollments = new ArrayList<>();
-        Set<String> invalidStudents = new HashSet<>(); 
-        Set<String> invalidCourses = new HashSet<>();  
 
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine().trim();
@@ -49,49 +45,24 @@ public class Driver1 {
                     break;
                 case "enrollment-add":
                     if (parts.length == 5) {
-                        String courseId = parts[1], studentId = parts[2];
-
-                        // Tambahkan hanya jika siswa tidak valid dan belum ada di invalidStudents
-                        if (students.stream().noneMatch(s -> s.getId().equals(studentId)) && !invalidStudents.contains(studentId)) {
-                            invalidStudents.add(studentId); 
-                        }
-
-                        // Tambahkan hanya jika kursus tidak valid dan belum ada di invalidCourses
-                        if (courses.stream().noneMatch(c -> c.getId().equals(courseId)) && !invalidCourses.contains(courseId)) {
-                            invalidCourses.add(courseId); 
-                        }
-
-                        // Jika siswa dan kursus valid, lakukan pendaftaran
-                        if (students.stream().anyMatch(s -> s.getId().equals(studentId)) &&
-                            courses.stream().anyMatch(c -> c.getId().equals(courseId))) {
-                            enrollments.add(new Enrollments(courseId, studentId, parts[3], parts[4], "None"));
-                        }
+                        enrollments.add(new Enrollments(parts[1], parts[2], parts[3], parts[4], "None"));
                     }
+                    break;
+                default:
                     break;
             }
         }
 
-        // Output invalid students
-        for (String studentId : invalidStudents) {
-            System.out.println( studentId);
-        }
+        courses.sort((course1, course2) -> course1.getId().compareTo(course2.getId()));
 
-        // Output invalid courses
-        for (String courseId : invalidCourses) {
-            System.out.println( courseId);
-        }
-
-        // Output courses
         for (int i = 0; i < courses.size(); i++) {
             System.out.println(courses.get(i));
         }
 
-        // Output students
         for (int i = 0; i < students.size(); i++) {
             System.out.println(students.get(i));
         }
 
-        // Output enrollments
         for (int i = 0; i < enrollments.size(); i++) {
             System.out.println(enrollments.get(i));
         }
