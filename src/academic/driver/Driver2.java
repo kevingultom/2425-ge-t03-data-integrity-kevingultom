@@ -18,7 +18,9 @@ public class Driver2 {
         List<Course> courses = new ArrayList<>();
         List<Student> students = new ArrayList<>();
         List<Enrollments> enrollments = new ArrayList<>();
+        List<String> errors = new ArrayList<>(); // Menyimpan pesan kesalahan
 
+        // Membaca input hingga menemukan '---'
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine().trim();
             if (input.equals("---")) {
@@ -45,7 +47,20 @@ public class Driver2 {
                     break;
                 case "enrollment-add":
                     if (parts.length == 5) {
-                        enrollments.add(new Enrollments(parts[1], parts[2], parts[3], parts[4], "None"));
+                        String courseId = parts[1], studentId = parts[2];
+
+                        // Validasi student
+                        if (students.stream().noneMatch(s -> s.getId().equals(studentId))) {
+                            errors.add("invalid student|" + studentId); // Menyimpan pesan kesalahan
+                        } 
+                        // Validasi course
+                        else if (courses.stream().noneMatch(c -> c.getId().equals(courseId))) {
+                            errors.add("invalid course|" + courseId); // Menyimpan pesan kesalahan
+                        }
+                        // Jika student dan course valid
+                        else {
+                            enrollments.add(new Enrollments(courseId, studentId, parts[3], parts[4], "None"));
+                        }
                     }
                     break;
                 default:
@@ -53,12 +68,25 @@ public class Driver2 {
             }
         }
 
+        // Sort courses and students by ID
+        courses.sort((course1, course2) -> course1.getId().compareTo(course2.getId()));
+        students.sort((student1, student2) -> student1.getId().compareTo(student2.getId()));
+
+        // Output setelah menemukan '---'
+        // Print error messages
+        for (String error : errors) {
+            System.out.println(error);
+        }
+
+        // Print all courses, students, and enrollments
         for (Course course : courses) {
             System.out.println(course);
         }
+
         for (Student student : students) {
             System.out.println(student);
         }
+
         for (Enrollments enrollment : enrollments) {
             System.out.println(enrollment);
         }
