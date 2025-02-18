@@ -54,20 +54,19 @@ public class Driver2 {
                     if (parts.length == 5) {
                         String courseId = parts[1], studentId = parts[2];
 
-                        // Cek apakah studentId ada di daftar students
-                        boolean studentExists = students.stream().anyMatch(s -> s.getId().equals(studentId));
-                        if (!studentExists && !invalidStudents.contains(studentId)) {
+                        // Cek apakah studentId ada di daftar students, jika tidak, tambahkan ke invalidStudents
+                        if (students.stream().noneMatch(s -> s.getId().equals(studentId))) {
                             invalidStudents.add(studentId); // Menyimpan pesan kesalahan hanya sekali
                         }
 
-                        // Cek apakah courseId ada di daftar courses
-                        boolean courseExists = courses.stream().anyMatch(c -> c.getId().equals(courseId));
-                        if (!courseExists && !invalidCourses.contains(courseId)) {
+                        // Cek apakah courseId ada di daftar courses, jika tidak, tambahkan ke invalidCourses
+                        if (courses.stream().noneMatch(c -> c.getId().equals(courseId))) {
                             invalidCourses.add(courseId); // Menyimpan pesan kesalahan hanya sekali
                         }
 
                         // Jika valid, masukkan data enrollments
-                        if (studentExists && courseExists) {
+                        if (students.stream().anyMatch(s -> s.getId().equals(studentId)) &&
+                            courses.stream().anyMatch(c -> c.getId().equals(courseId))) {
                             enrollments.add(new Enrollments(courseId, studentId, parts[3], parts[4], "None"));
                         }
                     }
