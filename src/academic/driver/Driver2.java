@@ -1,7 +1,9 @@
 package academic.driver;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Scanner;
 import academic.model.Course;
 import academic.model.Student;
@@ -18,7 +20,8 @@ public class Driver2 {
         List<Course> courses = new ArrayList<>();
         List<Student> students = new ArrayList<>();
         List<Enrollments> enrollments = new ArrayList<>();
-        List<String> errors = new ArrayList<>(); // Menyimpan pesan kesalahan
+        Set<String> invalidStudents = new HashSet<>(); // Menggunakan Set untuk menghindari duplikasi
+        Set<String> invalidCourses = new HashSet<>();  // Menggunakan Set untuk menghindari duplikasi
 
         // Membaca input hingga menemukan '---'
         while (scanner.hasNextLine()) {
@@ -37,11 +40,13 @@ public class Driver2 {
             switch (command) {
                 case "course-add":
                     if (parts.length == 5) {
+                        // Menambahkan kursus
                         courses.add(new Course(parts[1], parts[2], Integer.parseInt(parts[3]), parts[4]));
                     }
                     break;
                 case "student-add":
                     if (parts.length == 5) {
+                        // Menambahkan mahasiswa
                         students.add(new Student(parts[1], parts[2], Integer.parseInt(parts[3]), parts[4]));
                     }
                     break;
@@ -49,16 +54,20 @@ public class Driver2 {
                     if (parts.length == 5) {
                         String courseId = parts[1], studentId = parts[2];
 
-                        // Validasi student
-                        if (students.stream().noneMatch(s -> s.getId().equals(studentId))) {
-                            errors.add("invalid student|" + studentId); // Menyimpan pesan kesalahan
-                        } 
-                        // Validasi course
-                        else if (courses.stream().noneMatch(c -> c.getId().equals(courseId))) {
-                            errors.add("invalid course|" + courseId); // Menyimpan pesan kesalahan
+                        // Cek apakah studentId ada di daftar students
+                        boolean studentExists = students.stream().anyMatch(s -> s.getId().equals(studentId));
+                        if (!studentExists && !invalidStudents.contains(studentId)) {
+                            invalidStudents.add(studentId); // Menyimpan pesan kesalahan hanya sekali
                         }
-                        // Jika student dan course valid
-                        else {
+
+                        // Cek apakah courseId ada di daftar courses
+                        boolean courseExists = courses.stream().anyMatch(c -> c.getId().equals(courseId));
+                        if (!courseExists && !invalidCourses.contains(courseId)) {
+                            invalidCourses.add(courseId); // Menyimpan pesan kesalahan hanya sekali
+                        }
+
+                        // Jika valid, masukkan data enrollments
+                        if (studentExists && courseExists) {
                             enrollments.add(new Enrollments(courseId, studentId, parts[3], parts[4], "None"));
                         }
                     }
@@ -68,14 +77,21 @@ public class Driver2 {
             }
         }
 
+        // Sort courses and students by ID
         courses.sort((course1, course2) -> course1.getId().compareTo(course2.getId()));
         students.sort((student1, student2) -> student1.getId().compareTo(student2.getId()));
 
-     
-        for (String error : errors) {
-            System.out.println(error);
+        // Output setelah menemukan '---'
+        // Print error messages
+        for (String studentId : invalidStudents) {
+            System.out.println("invalid student|" + studentId);
         }
 
+        for (String courseId : invalidCourses) {
+            System.out.println("invalid course|" + courseId);
+        }
+
+        // Print all courses, students, and enrollments
         for (Course course : courses) {
             System.out.println(course);
         }
