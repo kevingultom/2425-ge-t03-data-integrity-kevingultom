@@ -51,11 +51,11 @@ public class Driver2 {
                     if (parts.length == 5) {
                         String courseId = parts[1], studentId = parts[2];
 
-                        if (students.stream().noneMatch(s -> s.getId().equals(studentId)) && !invalidStudents.contains(studentId)) {
+                        if (students.stream().noneMatch(s -> s.getId().equals(studentId))) {
                             invalidStudents.add(studentId); 
                         }
 
-                        if (courses.stream().noneMatch(c -> c.getId().equals(courseId)) && !invalidCourses.contains(courseId)) {
+                        if (courses.stream().noneMatch(c -> c.getId().equals(courseId))) {
                             invalidCourses.add(courseId); 
                         }
 
@@ -65,36 +65,32 @@ public class Driver2 {
                         }
                     }
                     break;
-                default:
-                    break;
             }
         }
 
-        courses.sort((course1, course2) -> course1.getId().compareTo(course2.getId()));
-
-        // Loop untuk invalid students menggunakan indeks
+        // Output untuk invalid students
         Object[] invalidStudentArray = invalidStudents.toArray();
         for (int i = 0; i < invalidStudentArray.length; i++) {
             System.out.println("invalid student|" + invalidStudentArray[i]);
         }
 
-        // Loop untuk invalid courses menggunakan indeks
+        // Output untuk invalid courses
         Object[] invalidCourseArray = invalidCourses.toArray();
         for (int i = 0; i < invalidCourseArray.length; i++) {
             System.out.println("invalid course|" + invalidCourseArray[i]);
         }
 
-        // Loop untuk courses menggunakan indeks
+        // Output untuk courses
         for (int i = 0; i < courses.size(); i++) {
             System.out.println(courses.get(i));
         }
 
-        // Loop untuk students menggunakan indeks
+        // Output untuk students
         for (int i = 0; i < students.size(); i++) {
             System.out.println(students.get(i));
         }
 
-        // Loop untuk enrollments menggunakan indeks
+        // Output untuk enrollments
         for (int i = 0; i < enrollments.size(); i++) {
             System.out.println(enrollments.get(i));
         }
