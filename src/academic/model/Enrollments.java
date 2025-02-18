@@ -35,7 +35,6 @@ public class Enrollments {
             return None;
         }
 
-        //SETTER
         public void setId(String id) {
             this.id = id;
         }

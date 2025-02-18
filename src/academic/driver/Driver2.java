@@ -28,10 +28,12 @@ public class Driver2 {
             if (input.equals("---")) {
                 break;
             }
+
             String[] parts = input.split("#");
             if (parts.length < 2) {
                 continue;
             }
+
             String command = parts[0];
             
             switch (command) {
@@ -49,14 +51,17 @@ public class Driver2 {
                     if (parts.length == 5) {
                         String courseId = parts[1], studentId = parts[2];
 
-                        if (students.stream().noneMatch(s -> s.getId().equals(studentId))) {
+                        // Hanya menambahkannya ke invalidStudents jika siswa tidak ditemukan di daftar siswa
+                        if (students.stream().noneMatch(s -> s.getId().equals(studentId)) && !invalidStudents.contains(studentId)) {
                             invalidStudents.add(studentId); 
                         }
 
-                        if (courses.stream().noneMatch(c -> c.getId().equals(courseId))) {
+                        // Hanya menambahkannya ke invalidCourses jika mata kuliah tidak ditemukan di daftar courses
+                        if (courses.stream().noneMatch(c -> c.getId().equals(courseId)) && !invalidCourses.contains(courseId)) {
                             invalidCourses.add(courseId); 
                         }
 
+                        // Jika ID siswa dan ID mata kuliah valid, lanjutkan dengan pendaftaran
                         if (students.stream().anyMatch(s -> s.getId().equals(studentId)) &&
                             courses.stream().anyMatch(c -> c.getId().equals(courseId))) {
                             enrollments.add(new Enrollments(courseId, studentId, parts[3], parts[4], "None"));
@@ -68,21 +73,31 @@ public class Driver2 {
         courses.sort((course1, course2) -> course1.getId().compareTo(course2.getId()));
 
 
+        // Output untuk invalid students
         for (String studentId : invalidStudents) {
             System.out.println("invalid student|" + studentId);
         }
+
+        // Output untuk invalid courses
         for (String courseId : invalidCourses) {
             System.out.println("invalid course|" + courseId);
         }
+
+        // Output untuk courses
         for (int i = 0; i < courses.size(); i++) {
             System.out.println(courses.get(i));
         }
+
+        // Output untuk students
         for (int i = 0; i < students.size(); i++) {
             System.out.println(students.get(i));
         }
+
+        // Output untuk enrollments
         for (int i = 0; i < enrollments.size(); i++) {
             System.out.println(enrollments.get(i));
         }
+
         scanner.close();
     }
 }
