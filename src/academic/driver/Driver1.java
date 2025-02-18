@@ -53,6 +53,10 @@ public class Driver1 {
             }
         }
 
+        courses.sort((course1, course2) -> course1.getId().compareTo(course2.getId()));
+        
+
+
         for (Course course : courses) {
             System.out.println(course);
         }
