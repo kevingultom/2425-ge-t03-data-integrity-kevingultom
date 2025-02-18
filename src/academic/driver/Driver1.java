@@ -54,17 +54,20 @@ public class Driver1 {
         }
 
         courses.sort((course1, course2) -> course1.getId().compareTo(course2.getId()));
-        
 
+        // Loop menggunakan indeks (for integer) untuk courses
+        for (int i = 0; i < courses.size(); i++) {
+            System.out.println(courses.get(i));
+        }
 
-        for (Course course : courses) {
-            System.out.println(course);
+        // Loop menggunakan indeks (for integer) untuk students
+        for (int i = 0; i < students.size(); i++) {
+            System.out.println(students.get(i));
         }
-        for (Student student : students) {
-            System.out.println(student);
-        }
-        for (Enrollments enrollment : enrollments) {
-            System.out.println(enrollment);
+
+        // Loop menggunakan indeks (for integer) untuk enrollments
+        for (int i = 0; i < enrollments.size(); i++) {
+            System.out.println(enrollments.get(i));
         }
 
         scanner.close();
