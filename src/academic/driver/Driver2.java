@@ -68,17 +68,14 @@ public class Driver2 {
             }
         }
 
-        // Sort courses and students by ID
         courses.sort((course1, course2) -> course1.getId().compareTo(course2.getId()));
         students.sort((student1, student2) -> student1.getId().compareTo(student2.getId()));
 
-        // Output setelah menemukan '---'
-        // Print error messages
+     
         for (String error : errors) {
             System.out.println(error);
         }
 
-        // Print all courses, students, and enrollments
         for (Course course : courses) {
             System.out.println(course);
         }
