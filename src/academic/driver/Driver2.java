@@ -7,6 +7,11 @@ import academic.model.Course;
 import academic.model.Student;
 import academic.model.Enrollments;
 
+
+/**
+ * @author 12S23001-Kevin Gultom
+ * @author 12S23010-Tiffani Butar-butar
+ */
 public class Driver2 {
 
     public static void main(String[] _args) {
@@ -62,6 +67,4 @@ public class Driver2 {
 
         scanner.close();
     }
-
-    
 }
